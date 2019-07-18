@@ -29,6 +29,19 @@ services:
       - traefik.port=80
     networks:
       - traefik-web
+  nginx-2-lb:
+    # 使用 Nginx 綁定另一個 Host
+    image: nginx:alpine
+    volumes:
+      - ./host02/index.html:/usr/share/nginx/html/index.html
+    labels:
+      - traefik.backend=nginx-2
+      - traefik.frontend.rule=Host:web2.local.com
+      - traefik.docker.network=traefik-web
+      - traefik.weight=10
+      - traefik.port=80
+    networks:
+      - traefik-web
   whoami-1:
     # 測試 whoami 綁定另一個 Host
     image: emilevauge/whoami:latest
@@ -47,6 +60,19 @@ services:
       - traefik.backend=whoami-2
       - traefik.frontend.rule=Host:whoami.local.com;PathPrefixStrip:/web
       - traefik.docker.network=traefik-web
+      - traefik.weight=1
+      - traefik.port=80
+    networks:
+      - traefik-web
+    command: sleep infinity
+  whoami-2-lb:
+    # 測試 whoami 綁定相同 Host 的不同路徑
+    image: emilevauge/whoami:latest
+    labels:
+      - traefik.backend=whoami-2
+      - traefik.frontend.rule=Host:whoami.local.com;PathPrefixStrip:/web
+      - traefik.docker.network=traefik-web
+      - traefik.weight=10
       - traefik.port=80
     networks:
       - traefik-web
