@@ -40,3 +40,12 @@ $ ./up.sh
 * `whoami.local.com/whoami`
 
 查看所有 Container 是否正常運作。
+
+[`whoami` Container](https://github.com/containous/whoami) 也還有其他的 Endpoint，有些可以運作正常，有些看似無法正常運作，參考 Source Code 以後發現有以下 Endpoint：
+
+* `/`
+* `/data`
+* `/echo`
+* `/bench`
+* `/api`
+* `/health`
