@@ -42,6 +42,19 @@ services:
       - traefik.port=80
     networks:
       - traefik-web
+  nginx-3:
+    # 不綁定 Host
+    image: nginx:alpine
+    volumes:
+      - ./host01:/usr/share/nginx/html:ro
+      - ./host01/default.conf:/etc/nginx/conf.d/default.conf
+    labels:
+      - traefik.frontend.rule=PathPrefixStrip:/demo
+      - traefik.backend=nginx-3
+      - traefik.docker.network=traefik-web
+      - traefik.port=80
+    networks:
+      - traefik-web
   whoami-1:
     # 測試 whoami 綁定另一個 Host
     image: emilevauge/whoami:latest

@@ -13,6 +13,6 @@ defaultEntryPoints = ["http", "https"]
 entrypoint="dashboard"
 
 [docker]
-domain = "localdomain.com"
+#domain = "localdomain.com"
 watch = true
 network = "web"
