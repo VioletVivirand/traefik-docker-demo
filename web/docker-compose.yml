@@ -9,7 +9,7 @@ services:
     # 使用 Nginx 綁定一個 Host
     image: nginx:alpine
     volumes:
-      - ./host01:/usr/share/nginx/html
+      - ./host01:/usr/share/nginx/html:ro
     labels:
       - traefik.backend=nginx-1
       - traefik.frontend.rule=Host:web.local.com
@@ -21,7 +21,7 @@ services:
     # 使用 Nginx 綁定另一個 Host
     image: nginx:alpine
     volumes:
-      - ./host02:/usr/share/nginx/html
+      - ./host02:/usr/share/nginx/html:ro
     labels:
       - traefik.backend=nginx-2
       - traefik.frontend.rule=Host:web2.local.com
@@ -33,7 +33,7 @@ services:
     # 使用 Nginx 綁定另一個 Host
     image: nginx:alpine
     volumes:
-      - ./host02:/usr/share/nginx/html
+      - ./host02:/usr/share/nginx/html:ro
     labels:
       - traefik.backend=nginx-2
       - traefik.frontend.rule=Host:web2.local.com
